@@ -60,7 +60,7 @@ pipeline {
 								script {
 										sh 'docker login -u "jfroguser" -p "AdminPassword1" https://petclinic.jfrog.io'
 		                dockerImage = docker.build "spring-petclinic-docker-images/spring-petclinic:$BUILD_NUMBER"
-                    docker.withRegistry('', 'jfrog') {
+                    docker.withRegistry('https://petclinic.jfrog.io') {
 												dockerImage.push()
 										}
                 }
