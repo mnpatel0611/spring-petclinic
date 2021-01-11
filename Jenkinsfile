@@ -58,10 +58,8 @@ pipeline {
 				stage('push docker image to JFrog'){
 						steps{
 								script {
-										script {
-		                    dockerImage = docker.build "spring-petclinic-docker-images/spring-petclinic:$BUILD_NUMBER"
-		                }
-                    docker.withRegistry('https://petclinic.jfrog.io') {
+		                dockerImage = docker.build "spring-petclinic-docker-images/spring-petclinic:$BUILD_NUMBER"
+                    docker.withRegistry('') {
 												sh 'docker login -u "jfroguser" -p "AdminPassword1" https://petclinic.jfrog.io'
 												dockerImage.push()
 										}
