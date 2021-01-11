@@ -54,6 +54,17 @@ pipeline {
                 }
             }
         }
+				stage('push docker image to JFrog') {
+						steps{
+								script {
+										sh 'docker login -u "jfroguser" -p "AdminPassword1" https://petclinic.jfrog.io'
+		                dockerImage = docker.build "spring-petclinic-docker-images/spring-petclinic:$BUILD_NUMBER"
+                    docker.withRegistry('https://petclinic.jfrog.io') {
+												dockerImage.push()
+										}
+                }
+						}
+				}
         stage ('print job summary') {
             steps {
                 echo "----Git repo link: https://github.com/mnpatel0611/spring-petclinic"

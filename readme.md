@@ -14,23 +14,24 @@ enkins:lts`
 -- Set Docker registry URL in config - https://hub.docker.com/repository/docker/mpatel011/spring-petclinic  \
 -- Set Source Control Management to Git in config \
 -- Under `Build Environment` Check Maven3-Artifactory Integration \
---- Set Artifactory Server - https://petclinic.jfrog.io/artifactory \
---- Target release repository - spring-petclinic  \
---- Target snapshots repository - spring-petclinic \
+---- Set Artifactory Server - https://petclinic.jfrog.io/artifactory \
+---- Target release repository - spring-petclinic  \
+---- Target snapshots repository - spring-petclinic \
 -- Under `Build` add `Execute shell` and add below to list and push image to Dockerhub \
 ```
-docker images 
-docker build . -t mpatel011/spring-petclinic:$BUILD_NUMBER 
-docker push mpatel011/spring-petclinic:$BUILD_NUMBER 
-``` 
+docker images
+docker build . -t mpatel011/spring-petclinic:$BUILD_NUMBER
+docker push mpatel011/spring-petclinic:$BUILD_NUMBER
+```
 4.2 spring-petclinic-pipeline (Pipeline) \
 -- Set Source Control Management to Git in config \
 -- Give script path to Jenkinsfile path \
--- Save and run Build 
+-- Save and run Build
 
 #### Build Tasks
 1. Push artifact to JFrog Artifactory (hosted on cloud) https://petclinic.jfrog.io/artifactory/spring-petclinic
 2. Push Docker image to Dockerhub https://hub.docker.com/repository/docker/mpatel011/spring-petclinic
+3. Push Docker image to JFROG https://petclinic.jfrog.io/artifactory/spring-petclinic-docker-images/
 
 #### Download Docker image from Dockerhub: \
 ```docker pull mpatel011/spring-petclinic:104```
