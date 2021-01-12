@@ -5,10 +5,10 @@ WORKDIR /app
 COPY pom.xml ./
 
 # download dependency
-RUN ./mvnw dependency:go-offline
+RUN mvn dependency:go-offline
 
 COPY . ./
-RUN ./mvnw compile package
+RUN mvn compile package
 
 FROM openjdk:8-jre-alpine
 
