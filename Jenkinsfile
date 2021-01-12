@@ -11,7 +11,7 @@ pipeline {
         skipStagesAfterUnstable()
     }
     environment {
-        artifactory_url="https://petclinic.jfrog.io/artifactory"
+        artifactory_url='https://petclinic.jfrog.io/artifactory'
         artifactory_repo="${artifactory_url}/spring-petclinic"
     }
     /////////////////////////////////////////////////////////////////////
@@ -22,14 +22,20 @@ pipeline {
     // START : Stages
     /////////////////////////////////////////////////////////////////////
     stages {
-        stage('build started') {
+        stage('build and install') {
             steps {
-                echo "build <<< ${BUILD_NUMBER} >>> starting..."
+                echo 'build <<< ${BUILD_NUMBER} >>> starting...'
+								sh './mvnw -DskipTests clean install'
             }
         }
-        stage('build and push to artifactory') {
+				stage('run tests') {
             steps {
-                sh "mvn clean validate compile test package"
+								sh './mvnw test'
+            }
+        }
+        stage('package and push to artifactory') {
+            steps {
+                sh "./mvnw package"
                 sh "ls -la target"
                 echo "--------------------Start - Push to JFROG Artifactory------------------------"
                 sh 'curl -u jfroguser:AdminPassword1 -T ./target/spring-petclinic-2.4.0.BUILD-SNAPSHOT.jar "${artifactory_repo}/spring-petclinic-2.4.0.BUILD-${BUILD_NUMBER}.jar"'

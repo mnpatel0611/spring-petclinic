@@ -5,10 +5,10 @@ WORKDIR /app
 COPY pom.xml ./
 
 # download dependency
-RUN mvn dependency:go-offline
+RUN ./mvnw dependency:go-offline
 
 COPY . ./
-RUN mvn validate compile test package
+RUN ./mvnw compile package
 
 FROM openjdk:8-jre-alpine
 
@@ -17,4 +17,3 @@ COPY --from=build-env /app/target/spring-petclinic-2.4.0.BUILD-SNAPSHOT.jar ./sp
 
 EXPOSE 8080
 CMD ["java", "-jar", "/app/spring-petclinic.jar"]
-
