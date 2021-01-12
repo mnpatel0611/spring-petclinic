@@ -25,7 +25,7 @@ pipeline {
         stage('build and install') {
             steps {
                 echo "build <<< ${BUILD_NUMBER} >>> starting..."
-				sh "./mvnw -DskipTests clean install"
+				sh "./mvnw -DskipTests clean compile install"
             }
         }
 		stage('run tests') {
