@@ -2,14 +2,13 @@
 1. Steup Docker locally (https://docs.docker.com/docker-for-mac/install/)
 2. Download Jenkins docker image and Run
 	 - `sudo docker pull jenkins/jenkins:lts`
-   - `sudo docker run -p 8081:8080 -p 50000:50000 -v jenkins_home:/var/jenkins_home jenkins/j
-enkins:lts`
-3. Install Git, Artifactory, Docker plugins
+   - `sudo docker run -p 8081:8080 -p 50000:50000 -v jenkins_home:/var/jenkins_home jenkins/jenkins:lts`
+3. Install Git, Artifactory, Docker Pipeline plugins
 4. Created two jobs \
 4.1 spring-PetClinic (Freestyle project) \
 -- Set Docker registry URL in config - https://hub.docker.com/repository/docker/mpatel011/spring-petclinic  \
 -- Set Source Control Management to Git in config \
--- Under `Build Environment` Check Maven3-Artifactory Integration \
+-- Under `Build Environment` Checked Maven3-Artifactory Integration \
 ---- Set Artifactory Server - https://petclinic.jfrog.io/artifactory \
 ---- Target release repository - spring-petclinic  \
 ---- Target snapshots repository - spring-petclinic \
